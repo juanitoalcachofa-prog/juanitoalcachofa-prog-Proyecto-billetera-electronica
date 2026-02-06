@@ -22,6 +22,6 @@ public class Notificacion {
 
     @Override
     public String toString() {
-        return ">> " + fechaNotificacion + ": " + mensajeNotificacion;
+        return "[" + fechaNotificacion + "] " + mensajeNotificacion;
     }
 }

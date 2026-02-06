@@ -10,8 +10,8 @@ public class ArchivoTexto {
             File carpeta = archivo.getParentFile();
             if (carpeta != null && !carpeta.exists()) carpeta.mkdirs();
             if (!archivo.exists()) archivo.createNewFile();
-        } catch (Exception errorArchivo) {
-            System.out.println("No se pudo crear el archivo o directorio: " + rutaArchivo);
+        } catch (Exception e) {
+            System.out.println("No se pudo crear el archivo: " + rutaArchivo);
         }
     }
 
@@ -20,23 +20,23 @@ public class ArchivoTexto {
         try (BufferedWriter escritor = new BufferedWriter(new FileWriter(rutaArchivo, true))) {
             escritor.write(contenido);
             escritor.newLine();
-        } catch (IOException errorEscritura) {
+        } catch (IOException e) {
             System.out.println("Error al guardar en archivo: " + rutaArchivo);
         }
     }
 
     public static ArrayList<String> leerArchivo(String rutaArchivo) {
         verificarArchivo(rutaArchivo);
-        ArrayList<String> lineasArchivo = new ArrayList<>();
+        ArrayList<String> lineas = new ArrayList<>();
         try (BufferedReader lector = new BufferedReader(new FileReader(rutaArchivo))) {
-            String lineaActual;
-            while ((lineaActual = lector.readLine()) != null) {
-                if (!lineaActual.trim().isEmpty()) lineasArchivo.add(lineaActual);
+            String linea;
+            while ((linea = lector.readLine()) != null) {
+                if (!linea.trim().isEmpty()) lineas.add(linea);
             }
-        } catch (IOException errorLectura) {
+        } catch (IOException e) {
             System.out.println("Error al leer archivo: " + rutaArchivo);
         }
-        return lineasArchivo;
+        return lineas;
     }
 
     public static void sobreescribirArchivo(String rutaArchivo, ArrayList<String> lineas) {

@@ -3,22 +3,26 @@ package acciones;
 import java.time.LocalDate;
 
 public class Transaccion {
+    private int idTransaccion;
+    private int idUsuario;
+    private int idCuenta;
     private String tipoTransaccion;
     private double montoTransaccion;
     private LocalDate fechaTransaccion;
+    private String categoria;
 
-    public Transaccion(String tipoTransaccion, double montoTransaccion) {
+    public Transaccion(int idTransaccion, int idUsuario, int idCuenta, String tipoTransaccion, double montoTransaccion, String categoria) {
+        this.idTransaccion = idTransaccion;
+        this.idUsuario = idUsuario;
+        this.idCuenta = idCuenta;
         this.tipoTransaccion = tipoTransaccion;
         this.montoTransaccion = montoTransaccion;
+        this.categoria = categoria;
         this.fechaTransaccion = LocalDate.now();
     }
 
-    public String getTipoTransaccion() { return tipoTransaccion; }
-    public double getMontoTransaccion() { return montoTransaccion; }
-    public LocalDate getFechaTransaccion() { return fechaTransaccion; }
-
     @Override
     public String toString() {
-        return "[" + fechaTransaccion + "] " + tipoTransaccion + " -> $" + montoTransaccion;
+        return "[" + fechaTransaccion + "] " + tipoTransaccion + " -> $" + montoTransaccion + " (" + categoria + ")";
     }
 }
