@@ -1,0 +1,7 @@
+1 | 1 | ¡Bienvenido a su Billetera Electrónica, walter! | 2026-02-19
+2 | 1 | Nueva cuenta creada con ID: 1 y saldo: $10000.0 | 2026-02-19
+3 | 1 | Depósito recibido: $400.0 - Nuevo saldo: $10400.0 | 2026-02-19
+4 | 1 | Retiro/Gasto realizado: $50.0 - Nuevo saldo: $10350.0 | 2026-02-19
+5 | 1 | ¡Préstamo 1 aprobado! Monto: $1300.0 | Interés: 2.0% | 2026-02-19
+6 | 1 | Retiro/Gasto realizado: $134.0 - Nuevo saldo: $10216.0 | 2026-02-19
+7 | 1 | Abono a préstamo 1: $134.0 | 2026-02-19
