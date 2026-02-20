@@ -10,13 +10,13 @@ public class Prestamo {
     private double montoSolicitado;
     private double interes;
     private int cantidadMeses;
-    private int mesesPagados;
+    private double mesesPagados;
     private double cuotaMensual;
     private String estadoPrestamo;
     private String tipoPrestamo;
 
     public Prestamo(int idPrestamo, int idUsuarioPropietario, double montoSolicitado, double interes,
-            int cantidadMeses, int mesesPagados, double cuotaMensual, String estadoPrestamo, String tipoPrestamo) {
+            int cantidadMeses, double mesesPagados, double cuotaMensual, String estadoPrestamo, String tipoPrestamo) {
         this.idPrestamo = idPrestamo;
         this.idUsuarioPropietario = idUsuarioPropietario;
         this.montoSolicitado = montoSolicitado;
@@ -48,7 +48,7 @@ public class Prestamo {
         return cantidadMeses;
     }
 
-    public int getMesesPagados() {
+    public double getMesesPagados() {
         return mesesPagados;
     }
 
@@ -72,19 +72,20 @@ public class Prestamo {
 
     // Nuevo método para pago parcial o total
     public void registrarPago(double monto) {
-        // En un sistema flexible, el "mesesPagados" se vuelve un contador de abonos
-        // o lo recalculamos basado en cuánto representa del total
-        double totalCosto = montoSolicitado + (montoSolicitado * interes);
-        double yaPagado = mesesPagados * cuotaMensual;
+        // En un sistema flexible, el avance de meses es proporcional al monto pagado
+        double avance = monto / cuotaMensual;
+        mesesPagados += avance;
 
-        // Simulamos el avance de "meses" proporcionalmente si el usuario paga más o
-        // menos
-        mesesPagados++;
-        // Nota: Para pagos parciales reales, deberíamos guardar 'totalAbonado' en lugar
-        // de mesesPagados
-        // Pero para mantener compatibilidad con el esquema actual, ajustamos el estado
-        if (yaPagado + monto >= totalCosto) {
+        double totalCosto = montoSolicitado + (montoSolicitado * interes);
+        double yaPagadoAcumulado = mesesPagados * cuotaMensual;
+
+        // Si ya cubrió el total (con un pequeño margen de error decimal), finalizamos
+        if (yaPagadoAcumulado >= (totalCosto - 0.01)) {
             estadoPrestamo = "FINALIZADO";
+            // Ajustamos para no pasarnos del total de meses
+            if (mesesPagados > cantidadMeses) {
+                mesesPagados = cantidadMeses;
+            }
         }
     }
 

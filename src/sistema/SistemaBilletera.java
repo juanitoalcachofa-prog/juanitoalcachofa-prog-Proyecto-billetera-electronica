@@ -1,6 +1,13 @@
 package sistema;
 
-import acciones.*;
+import acciones.Usuario;
+import acciones.Gerente;
+import acciones.Cuenta;
+import acciones.Prestamo;
+import acciones.Notificacion;
+import acciones.Gasto;
+import acciones.AnalisisFinanzas;
+import acciones.Autenticable;
 import guardado.ArchivoTexto;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -9,14 +16,15 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 public class SistemaBilletera {
-    private ArrayList<Usuario> listaUsuarios;
-    private HashMap<Integer, Usuario> mapaUsuarios;
-    private ArrayList<Gerente> listaGerentes;
-    private ArrayList<Cuenta> listaCuentas;
-    private ArrayList<Prestamo> listaPrestamos;
-    private LinkedList<Notificacion> listaNotificaciones;
-    private ArrayList<Gasto> listaGastos;
+    public ArrayList<Usuario> listaUsuarios;
+    public HashMap<Integer, Usuario> mapaUsuarios;
+    public ArrayList<Gerente> listaGerentes;
+    public ArrayList<Cuenta> listaCuentas;
+    public ArrayList<Prestamo> listaPrestamos;
+    public LinkedList<Notificacion> listaNotificaciones;
+    public ArrayList<Gasto> listaGastos;
     private Scanner entradaScanner;
+
 
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
@@ -94,7 +102,7 @@ public class SistemaBilletera {
         }
     }
 
-    private void guardarGerentes() {
+    public void guardarGerentes() {
         ArrayList<String> lineas = new ArrayList<>();
         for (Gerente g : listaGerentes) {
             lineas.add(g.getIdGerente() + GUARDAR_SEP + g.getNombreGerente() + GUARDAR_SEP + g.getContraseña());
@@ -102,7 +110,7 @@ public class SistemaBilletera {
         ArchivoTexto.sobreescribirArchivo(DATA_PATH + "gerentes.txt", lineas);
     }
 
-    private void guardarUsuarios() {
+    public void guardarUsuarios() {
         ArrayList<String> lineas = new ArrayList<>();
         for (Usuario u : listaUsuarios) {
             lineas.add(u.getIdUsuario() + GUARDAR_SEP + u.getNombreUsuario() + GUARDAR_SEP + u.getContraseña()
@@ -112,7 +120,7 @@ public class SistemaBilletera {
         ArchivoTexto.sobreescribirArchivo(DATA_PATH + "usuarios.txt", lineas);
     }
 
-    private void guardarCuentas() {
+    public void guardarCuentas() {
         ArrayList<String> lineas = new ArrayList<>();
         for (Cuenta c : listaCuentas) {
             lineas.add(c.getIdCuenta() + GUARDAR_SEP + c.getIdUsuarioPropietario() + GUARDAR_SEP + c.getSaldoActual());
@@ -147,7 +155,7 @@ public class SistemaBilletera {
                 double monto = Double.parseDouble(d[2].trim());
                 double intPer = Double.parseDouble(d[3].trim());
                 int meses = Integer.parseInt(d[4].trim());
-                int pagados = Integer.parseInt(d[5].trim());
+                double pagados = Double.parseDouble(d[5].trim());
                 double cuota = Double.parseDouble(d[6].trim());
                 String est = d[7].trim();
                 String tipo = d[8].trim();
@@ -197,7 +205,7 @@ public class SistemaBilletera {
         }
     }
 
-    private void guardarNotificaciones() {
+    public void guardarNotificaciones() {
         ArrayList<String> lineas = new ArrayList<>();
         for (Notificacion n : listaNotificaciones) {
             lineas.add(n.getIdNotificacion() + GUARDAR_SEP + n.getIdUsuarioPropietario() + GUARDAR_SEP
@@ -220,7 +228,7 @@ public class SistemaBilletera {
         }
     }
 
-    private void guardarGastos() {
+    public void guardarGastos() {
         ArrayList<String> lineas = new ArrayList<>();
         for (Gasto g : listaGastos) {
             lineas.add(g.getIdGasto() + GUARDAR_SEP + g.getIdUsuario() + GUARDAR_SEP +
@@ -287,7 +295,40 @@ public class SistemaBilletera {
         return exito;
     }
 
-    private void actualizarPrestamosArchivo() {
+    public boolean transferirDinero(Usuario usuario, Cuenta origen, int idCuentaDestino, double monto) {
+        // 1. Buscar la cuenta destino en TODO el sistema
+        Cuenta destino = null;
+        for (Cuenta c : listaCuentas) {
+            if (c.getIdCuenta() == idCuentaDestino) {
+                destino = c;
+                break;
+            }
+        }
+
+        if (destino == null)
+            return false;
+        if (origen.getIdCuenta() == destino.getIdCuenta())
+            return false;
+
+        // 2. Ejecutar la operación usando tus métodos originales
+        if (origen.retirar(monto, listaNotificaciones)) {
+            destino.depositar(monto, listaNotificaciones);
+
+            // 3. Notificación personalizada de transferencia
+            Notificacion.crearNotificacion(usuario.getIdUsuario(),
+                    "Transferencia enviada de cuenta " + origen.getIdCuenta() + " a " + idCuentaDestino + ": $"
+                            + String.format("%.2f", monto),
+                    listaNotificaciones);
+
+            // 4. Guardar cambios
+            guardarCuentas();
+            guardarNotificaciones();
+            return true;
+        }
+        return false;
+    }
+
+    public void actualizarPrestamosArchivo() {
         ArrayList<String> lineas = new ArrayList<>();
         for (Prestamo p : listaPrestamos) {
             lineas.add(p.getIdPrestamo() + GUARDAR_SEP + p.getIdUsuarioPropietario() + GUARDAR_SEP +

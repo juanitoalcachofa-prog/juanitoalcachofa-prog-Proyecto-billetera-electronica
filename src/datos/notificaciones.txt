@@ -5,3 +5,9 @@
 5 | 1 | ¡Préstamo 1 aprobado! Monto: $1300.0 | Interés: 2.0% | 2026-02-19
 6 | 1 | Retiro/Gasto realizado: $134.0 - Nuevo saldo: $10216.0 | 2026-02-19
 7 | 1 | Abono a préstamo 1: $134.0 | 2026-02-19
+8 | 1 | Retiro/Gasto realizado: $134.33333333333331 - Nuevo saldo: $10081.666666666666 | 2026-02-19
+9 | 1 | Retiro/Gasto realizado: $100.0 - Nuevo saldo: $9981.666666666666 | 2026-02-19
+10 | 1 | Retiro/Gasto realizado: $10.0 - Nuevo saldo: $9971.666666666666 | 2026-02-19
+11 | 1 | Retiro/Gasto realizado: $100.0 - Nuevo saldo: $9871.666666666666 | 2026-02-19
+12 | 1 | Retiro/Gasto realizado: $134.33333333333331 - Nuevo saldo: $9737.333333333332 | 2026-02-19
+13 | 1 | [GERENCIA]: que ondaaaaaaa | 2026-02-19

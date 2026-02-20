@@ -1,7 +1,6 @@
 package acciones;
 
 import guardado.ArchivoTexto;
-import sistema.SistemaBilletera;
 import java.util.ArrayList;
 import java.util.List;
 

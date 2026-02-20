@@ -3,7 +3,7 @@ package acciones;
 import guardado.ArchivoTexto;
 import java.util.ArrayList;
 import java.util.List;
-import sistema.SistemaBilletera;
+
 
 public class Usuario extends Persona {
     private ArrayList<Cuenta> listaCuentas;
