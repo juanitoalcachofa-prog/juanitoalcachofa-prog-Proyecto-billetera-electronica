@@ -11,3 +11,14 @@
 11 | 1 | Retiro/Gasto realizado: $100.0 - Nuevo saldo: $9871.666666666666 | 2026-02-19
 12 | 1 | Retiro/Gasto realizado: $134.33333333333331 - Nuevo saldo: $9737.333333333332 | 2026-02-19
 13 | 1 | [GERENCIA]: que ondaaaaaaa | 2026-02-19
+14 | 1 | Retiro/Gasto realizado: $150.0 - Nuevo saldo: $9587.333333333332 | 2026-02-19
+15 | 1 | Depósito recibido: $100.0 - Nuevo saldo: $9687.333333333332 | 2026-02-19
+16 | 1 | Depósito recibido: $100.0 - Nuevo saldo: $9787.333333333332 | 2026-02-19
+17 | 1 | Retiro/Gasto realizado: $150.0 - Nuevo saldo: $9637.333333333332 | 2026-02-19
+18 | 1 | Depósito recibido: $100.0 - Nuevo saldo: $9737.333333333332 | 2026-02-19
+19 | 1 | Nueva cuenta creada con ID: 2 y saldo: $1600.0 | 2026-02-19
+20 | 1 | Retiro/Gasto realizado: $10.0 - Nuevo saldo: $1590.0 | 2026-02-19
+21 | 1 | Retiro/Gasto realizado: $1.0 - Nuevo saldo: $1589.0 | 2026-02-19
+22 | 1 | Retiro/Gasto realizado: $8000.0 - Nuevo saldo: $1737.3333333333321 | 2026-02-19
+23 | 2 | ¡Bienvenido a su Billetera Electrónica, pepe! | 2026-02-19
+24 | 1 | Retiro/Gasto realizado: $1.0 - Nuevo saldo: $1736.3333333333321 | 2026-02-19

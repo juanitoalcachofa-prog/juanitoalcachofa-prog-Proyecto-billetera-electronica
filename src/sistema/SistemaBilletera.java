@@ -279,7 +279,9 @@ public class SistemaBilletera {
         String tipo = entradaScanner.nextLine();
         System.out.print("Tasa de interés anual sugerida (Ej: 0.10 para 10%): ");
         double tasa = Double.parseDouble(entradaScanner.nextLine());
-
+        registrarPrestamo(usuario, monto, meses, tipo, tasa);
+    }
+    public void registrarPrestamo(Usuario usuario, double monto, int meses, String tipo, double tasa) {
         Prestamo.crearPrestamo(usuario, monto, meses, tasa, tipo, listaPrestamos, listaNotificaciones);
         actualizarPrestamosArchivo();
         guardarNotificaciones();

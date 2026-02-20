@@ -38,7 +38,7 @@ public class AnalisisFinanzas {
 
         if (saldo > 0) {
             double sugerenciaAhorro = saldo * 0.15;
-            consejos.add("[AHORRO SUGERIDO] Basado en tu saldo actual, podrías separar $"
+            consejos.add("[AHORRO SUGERIDO] Basado en tu sueldo actual, podrías separar $"
                     + String.format("%.2f", sugerenciaAhorro) + " este mes.");
         } else {
             consejos.add("[RIESGO] Tu saldo es negativo o cero. No realices compras a crédito hasta estabilizarte.");

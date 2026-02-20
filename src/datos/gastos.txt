@@ -1,1 +1,7 @@
 1 | 1 | 50.0 | Transporte | 2026-02-19
+2 | 1 | 150.0 | Otros | 2026-02-19
+3 | 1 | 150.0 | Alimentación | 2026-02-19
+4 | 1 | 10.0 | Transporte | 2026-02-19
+5 | 1 | 1.0 | Alimentación | 2026-02-19
+6 | 1 | 8000.0 | Entretenimiento | 2026-02-19
+7 | 1 | 1.0 | Alimentación | 2026-02-19
