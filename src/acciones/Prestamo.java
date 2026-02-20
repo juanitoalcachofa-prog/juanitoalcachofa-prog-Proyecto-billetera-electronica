@@ -66,23 +66,19 @@ public class Prestamo {
 
     public double getDeudaPendiente() {
         double totalAPagar = montoSolicitado + (montoSolicitado * interes);
-        double pagado = mesesPagados * cuotaMensual; // En sistema de cuotas fijas
+        double pagado = mesesPagados * cuotaMensual;
         return Math.max(0, totalAPagar - pagado);
     }
 
-    // Nuevo método para pago parcial o total
     public void registrarPago(double monto) {
-        // En un sistema flexible, el avance de meses es proporcional al monto pagado
         double avance = monto / cuotaMensual;
         mesesPagados += avance;
 
         double totalCosto = montoSolicitado + (montoSolicitado * interes);
         double yaPagadoAcumulado = mesesPagados * cuotaMensual;
 
-        // Si ya cubrió el total (con un pequeño margen de error decimal), finalizamos
         if (yaPagadoAcumulado >= (totalCosto - 0.01)) {
             estadoPrestamo = "FINALIZADO";
-            // Ajustamos para no pasarnos del total de meses
             if (mesesPagados > cantidadMeses) {
                 mesesPagados = cantidadMeses;
             }
@@ -97,8 +93,6 @@ public class Prestamo {
         listaPrestamos.add(p);
         usuario.agregarPrestamo(p);
 
-        // No guardamos línea aquí, delegamos al SistemaBilletera para que guarde todo
-        // el estado
         Notificacion.crearNotificacion(usuario.getIdUsuario(),
                 "¡Préstamo " + tipo + " aprobado! Monto: $" + monto + " | Interés: " + (tasaInteres * 100) + "%",
                 listaNotificaciones);

@@ -176,16 +176,12 @@ public class SistemaBilletera {
             if (d.length >= 3) {
                 int id = Integer.parseInt(d[0].trim());
                 int idU = Integer.parseInt(d[1].trim());
-                // El mensaje puede contener | accidentalmente, así que tomamos la última parte
-                // como fecha
-                // y el resto como mensaje si d.length > 3
                 String mensaje = d[2].trim();
                 LocalDate fecha = LocalDate.now();
 
                 if (d.length >= 4) {
                     try {
                         fecha = LocalDate.parse(d[d.length - 1].trim());
-                        // Si era mayor a 4, reconstruimos el mensaje con los pipes que pertenecían a él
                         if (d.length > 4) {
                             StringBuilder sb = new StringBuilder();
                             for (int i = 2; i < d.length - 1; i++) {
@@ -196,8 +192,6 @@ public class SistemaBilletera {
                             mensaje = sb.toString().trim();
                         }
                     } catch (Exception e) {
-                        // Si falla el parseo de la última parte, asumimos que no hay fecha y d[2...] es
-                        // mensaje
                     }
                 }
                 listaNotificaciones.add(new Notificacion(id, idU, mensaje, fecha));
@@ -298,7 +292,7 @@ public class SistemaBilletera {
     }
 
     public boolean transferirDinero(Usuario usuario, Cuenta origen, int idCuentaDestino, double monto) {
-        // 1. Buscar la cuenta destino en TODO el sistema
+        
         Cuenta destino = null;
         for (Cuenta c : listaCuentas) {
             if (c.getIdCuenta() == idCuentaDestino) {
@@ -312,17 +306,14 @@ public class SistemaBilletera {
         if (origen.getIdCuenta() == destino.getIdCuenta())
             return false;
 
-        // 2. Ejecutar la operación usando tus métodos originales
         if (origen.retirar(monto, listaNotificaciones)) {
             destino.depositar(monto, listaNotificaciones);
 
-            // 3. Notificación personalizada de transferencia
             Notificacion.crearNotificacion(usuario.getIdUsuario(),
                     "Transferencia enviada de cuenta " + origen.getIdCuenta() + " a " + idCuentaDestino + ": $"
                             + String.format("%.2f", monto),
                     listaNotificaciones);
 
-            // 4. Guardar cambios
             guardarCuentas();
             guardarNotificaciones();
             return true;

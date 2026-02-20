@@ -33,7 +33,6 @@ private void cargarTablaUsuarios() {
         double gastos = u.getGastosTotales();
         double ratio = (ingresos > 0) ? (gastos / ingresos) : 1.0;
 
-        // Decidimos el texto del estado basándonos en tus umbrales (0.8 y 0.5)
         String estado = (ratio > 0.8) ? "CRÍTICO" : 
                        (ratio > 0.5) ? "REGULAR" : "ESTABLE";
 
@@ -41,7 +40,7 @@ private void cargarTablaUsuarios() {
             u.getIdUsuario(),
             u.getNombreUsuario(),
             "$" + String.format("%.2f", u.getSaldoTotal()),
-            estado // Aquí se ve la salud financiera del cliente con tus reglas
+            estado
         };
         modelo.addRow(fila);
             tablaUsuarios.getColumnModel().getColumn(3).setCellRenderer(new javax.swing.table.DefaultTableCellRenderer() {
@@ -168,7 +167,6 @@ private void cargarTablaUsuarios() {
 
         if (msg.isEmpty()) return;
 
-        // Usamos el método de tu clase Gerente
         gerenteActual.enviarMensajePersonalizado(uDestino, msg, sistema.listaNotificaciones);
         sistema.guardarNotificaciones();
 
@@ -177,7 +175,7 @@ private void cargarTablaUsuarios() {
     }//GEN-LAST:event_btnEnviarAvisoActionPerformed
 
     private void txtMensajeAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMensajeAdminActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txtMensajeAdminActionPerformed
 
     private void btnVerNotificacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerNotificacionesActionPerformed
@@ -195,41 +193,6 @@ private void cargarTablaUsuarios() {
     }
     txtNotificacionesUsuario.setText(sb.toString());
     }//GEN-LAST:event_btnVerNotificacionesActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmGerente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmGerente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmGerente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmGerente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmGerente().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEnviarAviso;

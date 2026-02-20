@@ -18,29 +18,27 @@ public class FrmDashboard extends javax.swing.JFrame {
 
         lblHola.setText("Bienvenido, " + usuarioActual.getNombreUsuario());
         lblSaldoTotal.setText("Saldo Total: $" + String.format("%.2f", usuarioActual.getSaldoTotal()));
-
+        
         cargarTablaCuentas();
         cargarAsesoria(); 
         cargarTablaPrestamos(); 
         cargarNotificaciones();
     }
     private void cargarAsesoria() {
-    // 1. Obtenemos la lista de consejos desde la lógica
+        
     java.util.List<String> consejos = acciones.AnalisisFinanzas.generarConsejosDetallados(usuarioActual);
-    
-    // 2. Los unimos todos en un solo texto
     StringBuilder textoFinal = new StringBuilder();
-    for (String linea : consejos) {
-        textoFinal.append(linea).append("\n");
+        for (String linea : consejos) {
+            textoFinal.append(linea).append("\n");
+        }
+        
+    txtConsejos.setText(textoFinal.toString());
     }
     
-    // 3. Lo mostramos en el cuadro de texto
-    txtConsejos.setText(textoFinal.toString());
-}
     public FrmDashboard() {
         initComponents();
     }
-    // EL MÉTODO DEBE IR AQUÍ ADENTRO:
+
     private void cargarTablaCuentas() {
         DefaultTableModel modelo = (DefaultTableModel) tablaCuentas.getModel();
         modelo.setRowCount(0);
@@ -49,24 +47,25 @@ public class FrmDashboard extends javax.swing.JFrame {
             modelo.addRow(fila);
         }
     }
+    
     private void cargarTablaPrestamos() {
     DefaultTableModel modelo = (DefaultTableModel) tablaPrestamos.getModel();
     modelo.setRowCount(0);
     
-    for (acciones.Prestamo p : usuarioActual.getListaPrestamos()) {
-        Object[] fila = {
-            p.getIdPrestamo(),
-            "$" + String.format("%.2f", p.getMontoSolicitado()),
-            String.format("%.1f", p.getMesesPagados()) + "/" + p.getCantidadMeses(), // Redondeado proporcional
-            "$" + String.format("%.2f", p.getCuotaMensual()),
-            p.getEstadoPrestamo()
-        };
-        modelo.addRow(fila);
+        for (acciones.Prestamo p : usuarioActual.getListaPrestamos()) {
+            Object[] fila = {
+                p.getIdPrestamo(),
+                "$" + String.format("%.2f", p.getMontoSolicitado()),
+                String.format("%.1f", p.getMesesPagados()) + "/" + p.getCantidadMeses(), // Redondeado proporcional
+                "$" + String.format("%.2f", p.getCuotaMensual()),
+                p.getEstadoPrestamo()
+            };
+            modelo.addRow(fila);
+        }
     }
-    }
+    
     private void cargarNotificaciones() {
     StringBuilder sb = new StringBuilder("--- BANDEJA DE ENTRADA ---\n\n");
-    // Filtramos las notificaciones que son para este usuario
     for (acciones.Notificacion n : sistema.getListaNotificaciones()) {
         if (n.getIdUsuarioPropietario() == usuarioActual.getIdUsuario()) {
             sb.append("[").append(n.getFechaNotificacion()).append("]\n");
@@ -282,7 +281,7 @@ public class FrmDashboard extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Selecciona una cuenta y un préstamo.");
         return;
     }
-    // 2. Usar TUS objetos actuales
+
     int idP = (int) tablaPrestamos.getValueAt(filaP, 0);
     int idC = (int) tablaCuentas.getValueAt(filaC, 0);
     
@@ -291,22 +290,20 @@ public class FrmDashboard extends javax.swing.JFrame {
     
     acciones.Cuenta c = null;
     for(acciones.Cuenta item : usuarioActual.getListaCuentas()) if(item.getIdCuenta() == idC) c = item;
-    // 3. Preguntar monto (JOptionPane es estándar de Java)
+
     String mStr = JOptionPane.showInputDialog(this, "¿Cuánto vas a pagar?", p.getCuotaMensual());
     if (mStr == null || mStr.isEmpty()) return;
     double monto = Double.parseDouble(mStr);
-    // 4. USAR TUS MÉTODOS ORIGINALES (retirar y registrarPago)
+
     if (c.retirar(monto, sistema.getListaNotificaciones())) {
-        p.registrarPago(monto); // <--- Este es TU método
-        
-        // 5. Guardar usando TUS métodos de SistemaBilletera
+        p.registrarPago(monto);
+
         sistema.actualizarPrestamosArchivo();
         sistema.guardarCuentas();
         sistema.guardarNotificaciones();
         
         JOptionPane.showMessageDialog(this, "¡Pago realizado!");
-        
-        // Refrescar la vista
+
         lblSaldoTotal.setText("Saldo: $" + String.format("%.2f", usuarioActual.getSaldoTotal()));
         cargarTablaCuentas();
         cargarTablaPrestamos();
@@ -327,7 +324,6 @@ public class FrmDashboard extends javax.swing.JFrame {
     acciones.Cuenta cOrigen = null;
     for(acciones.Cuenta c : usuarioActual.getListaCuentas()) if(c.getIdCuenta() == idOrigen) cOrigen = c;
 
-    // 2. Pedir datos de destino
     String idDestStr = JOptionPane.showInputDialog(this, "ID de la cuenta destino:");
     if (idDestStr == null) return;
     int idDestino = Integer.parseInt(idDestStr);
@@ -336,10 +332,9 @@ public class FrmDashboard extends javax.swing.JFrame {
     if (montoStr == null) return;
     double monto = Double.parseDouble(montoStr);
 
-    // 3. Ejecutar transferencia
     if (sistema.transferirDinero(usuarioActual, cOrigen, idDestino, monto)) {
         JOptionPane.showMessageDialog(this, "¡Transferencia de $" + String.format("%.2f", monto) + " exitosa!");
-        // Refrescar vista
+
         lblSaldoTotal.setText("Saldo: $" + String.format("%.2f", usuarioActual.getSaldoTotal()));
         cargarTablaCuentas();
         cargarNotificaciones();
@@ -359,38 +354,33 @@ public class FrmDashboard extends javax.swing.JFrame {
     acciones.Cuenta cuentaElegida = null;
     for(acciones.Cuenta c : usuarioActual.getListaCuentas()) if(c.getIdCuenta() == idCuenta) cuentaElegida = c;
 
-    // 2. Elegir Categoría
     String[] categorias = {"Alimentación", "Transporte", "Salud", "Hogar", "Entretenimiento", "Otros"};
     String cat = (String) JOptionPane.showInputDialog(this, "Selecciona la categoría del gasto:", 
             "Categoría", JOptionPane.QUESTION_MESSAGE, null, categorias, categorias[0]);
     if (cat == null) return;
 
-    // 3. Pedir Monto
     String montoStr = JOptionPane.showInputDialog(this, "¿Cuánto gastaste?");
     if (montoStr == null) return;
     double monto = Double.parseDouble(montoStr);
 
-    // 4. Ejecutar el gasto usando tu lógica original
     if (cuentaElegida.retirar(monto, sistema.getListaNotificaciones())) {
-        // Crear el objeto Gasto y guardarlo
+
         int idG = sistema.getListaGastos().stream().mapToInt(acciones.Gasto::getIdGasto).max().orElse(0) + 1;
         acciones.Gasto nuevoGasto = new acciones.Gasto(idG, usuarioActual.getIdUsuario(), monto, cat, java.time.LocalDate.now());
         
         sistema.getListaGastos().add(nuevoGasto);
         usuarioActual.agregarGasto(nuevoGasto);
-        
-        // Guardar cambios en los archivos
+
         sistema.guardarGastos();
         sistema.guardarCuentas();
         sistema.guardarNotificaciones();
         
         JOptionPane.showMessageDialog(this, "¡Gasto registrado con éxito!");
-        
-        // Refrescar vista
+
         lblSaldoTotal.setText("Saldo: $" + String.format("%.2f", usuarioActual.getSaldoTotal()));
         cargarTablaCuentas();
         cargarNotificaciones();
-        cargarAsesoria(); // ¡Aquí verás los colores cambiar!
+        cargarAsesoria();
     } else {
         JOptionPane.showMessageDialog(this, "Saldo insuficiente en la cuenta elegida.");
     }

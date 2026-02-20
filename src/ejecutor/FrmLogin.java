@@ -118,7 +118,7 @@ public class FrmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
@@ -132,7 +132,6 @@ public class FrmLogin extends javax.swing.JFrame {
     if (ingresoStr == null) return;
     double ingreso = Double.parseDouble(ingresoStr);
 
-    // Llamamos a la lógica para crear y persistir
     sistema.crearUsuario(nombre, pass, ingreso);
     
     JOptionPane.showMessageDialog(this, "¡Usuario " + nombre + " creado con éxito! Ya puedes iniciar sesión.");
