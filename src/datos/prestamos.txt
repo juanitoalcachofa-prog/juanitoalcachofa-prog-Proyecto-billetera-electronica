@@ -1,1 +1,26 @@
-1 | 1 | 1300.0 | 0.02 | 12 | 5.744416873449132 | 134.33333333333331 | ACTIVO | 1
+1 | 1 | Bienvenido a la billetera digital! | 2026-03-01
+2 | 1 | Tu préstamo personal ha sido aprobado. | 2026-03-02
+3 | 2 | Tienes una nueva transferencia recibida de Pedro. | 2026-03-03
+4 | 3 | Alerta: Tu gasto en Alimentación superó el límite. | 2026-03-04
+5 | 4 | Recibiste un depósito de $500. | 2026-03-02
+6 | 5 | Tu saldo es bajo. Considera reducir tus gastos. | 2026-03-04
+7 | 6 | Nueva funcionalidad disponible: Gráficos de barra. | 2026-03-01
+8 | 7 | Pago de cuota de préstamo exitoso. | 2026-03-03
+9 | 8 | Felicitaciones por tu excelente historial crediticio. | 2026-03-02
+10 | 9 | Recordatorio: Tu cuota vence mañana. | 2026-03-05
+11 | 10 | Tu cuenta ID 14 ha sido activada. | 2026-03-01
+12 | 11 | Transferencia internacional recibida. | 2026-03-04
+13 | 12 | Alerta de seguridad: Nuevo inicio de sesión detectado. | 2026-03-05
+14 | 13 | Bienvenido Carlos, esperamos ayudarte a ahorrar. | 2026-03-02
+15 | 14 | Tu solicitud de préstamo hipotecario está en revisión. | 2026-03-01
+16 | 15 | Has ganado 50 puntos de fidelidad. | 2026-03-04
+17 | 16 | Tu ahorro programado de este mes se completó. | 2026-03-01
+18 | 17 | Alerta: Gasto no reconocido de $10 en Entretenimiento. | 2026-03-05
+19 | 18 | Inversión confirmada satisfactoriamente. | 2026-03-03
+20 | 19 | Nuevo mensaje del Gerente: Revisa tu salud financiera. | 2026-03-04
+21 | 20 | Feliz cumpleaños! Te regalamos un cupón de descuento. | 2026-03-05
+22 | 1 | Has gastado más de lo planeado esta semana. | 2026-03-05
+23 | 3 | Tu depósito de cheques está en proceso de verificación. | 2026-03-05
+24 | 4 | Pago automático de servicios realizado con éxito. | 2026-03-05
+25 | 8 | Tu tasa de interés ha bajado por buen cumplimiento! | 2026-03-05
+26 | 10 | Felicitaciones, terminaste de pagar tu préstamo ID 5! | 2026-03-05
